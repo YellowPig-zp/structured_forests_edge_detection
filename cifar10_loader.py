@@ -20,3 +20,5 @@ def load(file):
             blank_img[:, :, j] = img[32*32*j: 32*32*(j+1)].reshape((32, 32))
         images.append(blank_img)
     return images, labels
+
+    
