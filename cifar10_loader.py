@@ -6,7 +6,7 @@ def unpickle(file):
     with open(file, "rb") as fo:
         batch_dict = pickle.load(fo, encoding="bytes")
     return batch_dict
-
+# load a batch of cifar10 data set
 def load(file):
     filepath = "./cifar-10-batches-py/"
     filepath += file
