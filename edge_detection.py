@@ -19,3 +19,6 @@ if __name__ == "__main__":
         img = images[i]
         edges = edge_detect(img)
         cv.imwrite("./edge_maps/data_batch_1_{}.jpg".format(i), edges * 255.0)
+
+
+        
