@@ -103,6 +103,7 @@ if __name__ == "__main__":
         # batch8 = thread8.join()
 
         # print ("Exiting Main Thread")
+        
         edge_maps_batch = []
         for result in my_thread_results:
             edge_maps_batch += result
