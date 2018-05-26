@@ -20,10 +20,10 @@ def edge_detect(img):
     return edges
 
 class myThread(threading.Thread):
-    def __init__(self, thread_name, thread_images):
+    def __init__(self, thread_name, images, start_index, end_index):
       threading.Thread.__init__(self)
       self.thread_name = thread_name
-      self.thread_images = thread_images
+      self.thread_images = images[start_index:end_index]
 
 
     def run(self):
@@ -55,16 +55,16 @@ if __name__ == "__main__":
         edge_maps_batch = []
         num_size = len(images)
 
-        num_threads = 4
+        num_threads = 8
 
         my_threads = []
         for i in range(num_threads):
             if not i == num_threads - 1:
                 tmp_thread = myThread("Thread-{}".format(i+1), \
-                    images[num_size//num_threads*i:num_size//num_threads*(i+1)])
+                    images, num_size//num_threads*i, num_size//num_threads*(i+1))
             else:
                 tmp_thread = myThread("Thread-{}".format(i+1), \
-                    images[num_size//num_threads*i:])
+                    images, num_size//num_threads*i, num_size)
             my_threads.append(tmp_thread)
 
         for t in my_threads:
