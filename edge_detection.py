@@ -9,6 +9,7 @@ import threading
 cores = input()
 cores = cores.split(",")
 cores = [int(c) for c in cores]
+
 batch_names = ["data_batch_{}".format(i+1) for i in range(5)]
 model = "model.yml"
 ImageNet_directory = "/home/shared/rodia/datasets/imagenet/train_256x256/"

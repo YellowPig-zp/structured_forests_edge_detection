@@ -6,7 +6,7 @@ def unpickle(file):
     with open(file, "rb") as fo:
         batch_dict = pickle.load(fo, encoding="bytes")
     return batch_dict
-
+# load a batch of cifar10 data set
 def load(file):
     filepath = "./cifar-10-batches-py/"
     filepath += file
@@ -20,3 +20,5 @@ def load(file):
             blank_img[:, :, j] = img[32*32*j: 32*32*(j+1)].reshape((32, 32))
         images.append(blank_img)
     return images, labels
+
+    
