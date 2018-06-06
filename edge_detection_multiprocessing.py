@@ -5,10 +5,8 @@ import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import threading 
-cores = input()
-cores = cores.split(",")
-cores = [int(c) for c in cores]
+import multiprocessing 
+
 batch_names = ["data_batch_{}".format(i+1) for i in range(5)]
 model = "model.yml"
 ImageNet_directory = "/home/shared/rodia/datasets/imagenet/train_256x256/"
@@ -21,9 +19,9 @@ def edge_detect(img):
     edges = edge_detection.edgesNms(edges, orimap)
     return edges
 
-class myThread(threading.Thread):
+class myThread(multiprocessing.Process):
     def __init__(self, thread_name, images, start_index, end_index):
-      threading.Thread.__init__(self)
+      multiprocessing.Process.__init__(self)
       self.thread_name = thread_name
       self.thread_images = images[start_index:end_index]
 
@@ -39,7 +37,7 @@ class myThread(threading.Thread):
         self._return = thread_edge_maps_batch
 
     def join(self):
-        threading.Thread.join(self)
+        multiprocessing.Process.join(self)
         return self._return
 
 
@@ -57,7 +55,7 @@ if __name__ == "__main__":
         edge_maps_batch = []
         num_size = len(images)
 
-        num_threads = len(cores)
+        num_threads = 8
 
         my_threads = []
         for i in range(num_threads):
@@ -68,8 +66,9 @@ if __name__ == "__main__":
                 tmp_thread = myThread("Thread-{}".format(i+1), \
                     images, num_size//num_threads*i, num_size)
             my_threads.append(tmp_thread)
-        for idx, t in zip(cores, my_threads):
-            os.system("taskset -p -c %d %d" % (idx, os.getpid()))
+
+        for idx, t in enumerate(my_threads):
+            os.system("taskset -p -c %d %d" % (idx % multiprocessing.cpu_count(), os.getpid()))
             t.start()
 
         my_thread_results = []
