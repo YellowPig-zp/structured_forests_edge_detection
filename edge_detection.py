@@ -13,7 +13,9 @@ cores = [int(c) for c in cores]
 batch_names = ["data_batch_{}".format(i+1) for i in range(5)]
 model = "model.yml"
 ImageNet_directory = "/home/shared/rodia/datasets/imagenet/train_256x256/"
+saved_directory = "/home/qinzp97/rodia/hdd1/ImageNet_edge_maps/"
 # ImageNet_directory = "./ImageNet/"
+
 
 def edge_detect(img):
     edge_detection = cv.ximgproc.createStructuredEdgeDetection(model)
@@ -48,8 +50,8 @@ class myThread(threading.Thread):
 if __name__ == "__main__":
     # name = batch_names[0]
     for batch_name in os.listdir(ImageNet_directory):
-        if batch_name in os.listdir("./ImageNet_edge_maps/"):
-            print("{} removed!".format(batch_name))
+        if batch_name in os.listdir(saved_directory):
+            print("{} already done!".format(batch_name))
             continue
         print("{} starts:".format(batch_name))
         full_filename = ImageNet_directory + batch_name
@@ -111,6 +113,6 @@ if __name__ == "__main__":
         for result in my_thread_results:
             edge_maps_batch += result
         edge_maps_batch = np.array(edge_maps_batch)
-        np.save("./ImageNet_edge_maps/"+batch_name, edge_maps_batch)
+        np.save(saved_directory+batch_name, edge_maps_batch)
 
         
