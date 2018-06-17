@@ -5,15 +5,16 @@ import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import threading 
+import threading
+import settings 
 cores = input()
 cores = cores.split(",")
 cores = [int(c) for c in cores]
 
 batch_names = ["data_batch_{}".format(i+1) for i in range(5)]
 model = "model.yml"
-ImageNet_directory = "/home/shared/rodia/datasets/imagenet/train_256x256/"
-saved_directory = "/home/qinzp97/rodia/hdd1/ImageNet_edge_maps/"
+ImageNet_directory = settings.ORIGINAL_IMAGE_PATH
+saved_directory = settings.EDGEMAP_PATH
 # ImageNet_directory = "./ImageNet/"
 
 
