@@ -21,3 +21,5 @@ def generate_dataset():
 
 		np.save(settings.PICKED_ORIGINALS_PATH+batch_name, orignal_imgs_picked)
 		np.save(settings.PICKED_EDGEMAPS_PATH+batch_name, edgemaps_picked)
+
+		print("{} done!".format(batch_name))
