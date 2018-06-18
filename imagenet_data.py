@@ -18,8 +18,12 @@ def generate_picked_dataset():
 		if batch_name in os.listdir(settings.PICKED_ORIGINALS_PATH):
 			print("{} done already!".format(batch_name))
 			continue
-		original_imgs = np.load(ORIGINALS_PATH + batch_name)
-		edgemaps = np.load(EDGEMAPS_PATH + batch_name)
+		try:
+			original_imgs = np.load(ORIGINALS_PATH + batch_name)
+			edgemaps = np.load(EDGEMAPS_PATH + batch_name)
+		except:
+			print(batch_name + "went wrong")
+			raise RuntimeError
 
 		assert original_imgs.shape[0] == edgemaps.shape[0]
 
