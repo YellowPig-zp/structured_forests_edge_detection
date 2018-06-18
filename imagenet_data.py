@@ -15,6 +15,9 @@ def generate_picked_dataset():
 	and EDGEMAPS_PATH
 	"""
 	for batch_name in os.listdir(ORIGINALS_PATH):
+		if batch_name in os.listdir(settings.PICKED_ORIGINALS_PATH):
+			print("{} done already!".format(batch_name))
+			continue
 		original_imgs = np.load(ORIGINALS_PATH + batch_name)
 		edgemaps = np.load(EDGEMAPS_PATH + batch_name)
 
