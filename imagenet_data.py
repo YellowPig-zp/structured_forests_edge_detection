@@ -17,7 +17,7 @@ def generate_dataset():
 		num_imgs = orignal_imgs.shape[0]
 		picked_indices = np.random.choice(num_imgs, NUM_IMAGES_PICKED, replace=False)
 		orignal_imgs_picked = orignal_imgs[picked_indices].transpose(0, 2, 3, 1)
-		edgemaps_picked = np.array([edgemaps[picked_indices]])
+		edgemaps_picked = edgemaps[picked_indices]
 
 		np.save(settings.PICKED_ORIGINALS_PATH+batch_name, orignal_imgs_picked)
 		np.save(settings.PICKED_EDGEMAPS_PATH+batch_name, edgemaps_picked)
