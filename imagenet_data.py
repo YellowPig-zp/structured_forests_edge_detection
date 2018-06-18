@@ -41,7 +41,8 @@ def generate_single_files_dataset():
 	"""
 	original_imgs_picked = None
 	edgemaps_picked = None
-
+	count = 0
+	
 	for batch_name in os.listdir(settings.PICKED_ORIGINALS_PATH):
 
 		original_imgs = np.load(settings.PICKED_ORIGINALS_PATH+batch_name)
@@ -53,6 +54,9 @@ def generate_single_files_dataset():
 		else:
 			original_imgs_picked = np.concatenate((original_imgs_picked, original_imgs), axis=0)
 			edgemaps_picked = np.concatenate((edgemaps_picked, edgemaps), axis=0)
+
+		count += 1
+		print("{}/1000 is appended".format(count))
 
 	np.save(settings.DATASET_PATH+"original_images.npy", original_imgs_picked)
 	np.save(settings.DATASET_PATH+"edgemaps.npy", edgemaps_picked)
