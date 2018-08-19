@@ -10,3 +10,4 @@ PICKED_ORIGINALS_PATH = "/home/qinzp97/rodia/hdd1/picked_dataset/ImageNet_origin
 # picked edgemaps path
 PICKED_EDGEMAPS_PATH = "/home/qinzp97/rodia/hdd1/picked_dataset/ImageNet_edgemaps/"
 
+
